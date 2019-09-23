@@ -22,7 +22,7 @@ namespace Conventor
         static Panel buffer = new Panel();
         static FolderBrowserDialog fbd = new FolderBrowserDialog();
         static exForm exf = new exForm();
-        static string[] searchPattern = new string[] { "*.mp4","*.flv","*.wmv","*.avi","*.mkv","*.rmvb" };
+        static string[] searchPattern = new string[] { "*.mp4","*.mov", "*.flv","*.wmv","*.avi","*.mkv","*.rmvb" };
         static List<ProgressBar> pb = new List<ProgressBar>();
         static List<ListViewItem> lvi = new List<ListViewItem>();
         static ContextMenuStrip cm = new ContextMenuStrip();
@@ -43,6 +43,11 @@ namespace Conventor
             
         }
 
+        private int TimeToSec(DateTime dt)
+        {
+            return dt.Hour * 60 * 60 + dt.Minute * 60 + dt.Second;
+        }
+
         private void btn_addFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = openFile();
@@ -51,7 +56,9 @@ namespace Conventor
 
         private void btn_exSetting_Click(object sender, EventArgs e)
         {
+            exf.setSavePath("");
             exf.ShowDialog();
+            btn_Start.Enabled = false;
         }
         public void createExSettingFM()
         {
@@ -65,7 +72,7 @@ namespace Conventor
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Multiselect = true;
-            ofd.Filter = "影片|*.mp4;*.mkv;*.flv;*.rmvb;*.avi;*.wmv;*.swf|All files(*.*)|*.*";
+            ofd.Filter = "影片|*.mov;*.mp4;*.mkv;*.flv;*.rmvb;*.avi;*.wmv;*.swf|All files(*.*)|*.*";
             ofd.FilterIndex = 1;
             ofd.Title = "選取影片檔案";
             ofd.ShowDialog();
@@ -148,36 +155,66 @@ namespace Conventor
             new Thread(creatProcess).Start();
         }
 
+        async Task ConsumeOutput(TextReader reader, Action<string> callback)
+        {
+            char[] buffer = new char[256];
+            int cch;
+            while ((cch = await reader.ReadAsync(buffer, 0, buffer.Length)) > 0)
+            {
+                callback(new string(buffer, 0, cch));
+            }
+        }
+
         public void creatProcess()
         {
             try
             {
-                
+            //Duration: 00:00:21.67, start: 0.000000, bitrate: 7784 kb / s
                 for (int i = 0; i < listDisplay.Items.Count; i++) //照ListView中項目的順序轉檔
                 {
+                    
                     index = i;             //取得Item的索引值
                     p = new Process();
-                    p.StartInfo.FileName = System.Windows.Forms.Application.StartupPath + "\\mencoder.exe"; //Mencoder與程式放於同目錄
+                    p.StartInfo.FileName = System.Windows.Forms.Application.StartupPath + "\\ffmpeg.exe"; //Mencoder與程式放於同目錄
                     string cmd = exf.getCommandLine(listDisplay.Items[index].SubItems[1].Text);  //exf為進階設定的視窗
                     p.StartInfo.Arguments = cmd;   //設定進程命令參數    
                     p.StartInfo.UseShellExecute = false;  //為讓Mencoder回傳的訊息至輸出留須設False
                     p.StartInfo.RedirectStandardOutput = true; //開啟標準輸出流
+                    p.StartInfo.RedirectStandardError = true;
                     p.StartInfo.CreateNoWindow = true; //不顯示Mencoder視窗
                     p.Start();
-                    while (!p.HasExited)   //進程還沒結束的話就不斷取得Mecoder回傳的進度百分比給ProgressBar
+                    string ops = "";
+                    float time = 0;
+                    int status = 0;
+                    while (time == 0)
+                    {
+                        ops = p.StandardError.ReadLine();
+                        Console.WriteLine(ops);
+                        if(ops.IndexOf("Duration") >= 0)
+                        {
+                            time = TimeToSec(Convert.ToDateTime(ops.Split(',')[0].Substring(11)));
+                        }
+                    }
+                    while (!p.HasExited && p.StandardError.EndOfStream != true)   //進程還沒結束的話就不斷取得Mecoder回傳的進度百分比給ProgressBar
                     {
                         try
                         {
-                            if (pb[index].Value != 100)
-                            {
-                                lblStatus.Text = p.StandardOutput.ReadLine();  //及時轉檔狀態監測
-                                pb[index].Value = int.Parse(p.StandardOutput.ReadLine().Substring(21, 2)); //從Mencoder傳給輸出流的訊息取的進度百分比
-                            }
-                            else break;
+                            ops = p.StandardError.ReadLine();  //及時轉檔狀態監測
+                            Console.WriteLine(ops);
+                            if (ops.IndexOf("frame") != 0) continue;
+                            status = (int)((TimeToSec(Convert.ToDateTime(ops.Substring(48, 8))) / time) * 100);//從Mencoder傳給輸出流的訊息取的進度百分比
+                            lblStatus.Text = ops;
+                            lbl_percent.Text = "" + status + "%";
+                            this.Text = "Conventor ("+i+"/"+listDisplay.Items.Count+" - "+status+"%)";
+                            pb[index].Value = status;
                         }
-                        catch (Exception ex) { }
+                        catch (Exception ex) {  }
                     }
+                    pb[index].Value = 100;
                 }
+                lbl_percent.Text = lblStatus.Text = "";
+                this.Text = "Conventor (ALL DONE!)";
+
             }
             catch (Exception ex) { }
         }
@@ -193,6 +230,20 @@ namespace Conventor
             catch (Exception ex) { }
         }
 
+        private void pbReDrawThread(object sender, ScrollEventArgs e)
+        {
+
+        }
+
+        private void pbReDrawThread(object sender, ColumnWidthChangedEventArgs e)
+        {
+
+        }
+
+        private void pbReDrawThread(object sender, ColumnWidthChangingEventArgs e)
+        {
+
+        }
     }
 }
 

@@ -29,3 +29,17 @@ C:\Users\user\Desktop\Conventor\Conventor\Conventor\obj\Debug\Conventor.csproj.G
 C:\Users\YoYo\Desktop\新增資料夾\Conventor\Conventor\Conventor\bin\Debug\SplitButton.pdb
 C:\Users\YoYo\Desktop\新增資料夾\Conventor\Conventor\Conventor\bin\Debug\FormDLL.pdb
 C:\Users\YoYo\Desktop\新增資料夾\Conventor\Conventor\Conventor\bin\Debug\FormDLL.dll
+G:\Programer\CSharp\Conventor\Conventor\Conventor\bin\Debug\Conventor.exe.config
+G:\Programer\CSharp\Conventor\Conventor\Conventor\bin\Debug\Conventor.exe
+G:\Programer\CSharp\Conventor\Conventor\Conventor\bin\Debug\Conventor.pdb
+G:\Programer\CSharp\Conventor\Conventor\Conventor\bin\Debug\FormDLL.dll
+G:\Programer\CSharp\Conventor\Conventor\Conventor\bin\Debug\FormDLL.pdb
+G:\Programer\CSharp\Conventor\Conventor\Conventor\bin\Debug\SplitButton.pdb
+G:\Programer\CSharp\Conventor\Conventor\Conventor\obj\Debug\Conventor.csprojAssemblyReference.cache
+G:\Programer\CSharp\Conventor\Conventor\Conventor\obj\Debug\Conventor.Form1.resources
+G:\Programer\CSharp\Conventor\Conventor\Conventor\obj\Debug\Conventor.Properties.Resources.resources
+G:\Programer\CSharp\Conventor\Conventor\Conventor\obj\Debug\Conventor.csproj.GenerateResource.cache
+G:\Programer\CSharp\Conventor\Conventor\Conventor\obj\Debug\Conventor.csproj.CoreCompileInputs.cache
+G:\Programer\CSharp\Conventor\Conventor\Conventor\obj\Debug\Conventor.csproj.CopyComplete
+G:\Programer\CSharp\Conventor\Conventor\Conventor\obj\Debug\Conventor.exe
+G:\Programer\CSharp\Conventor\Conventor\Conventor\obj\Debug\Conventor.pdb

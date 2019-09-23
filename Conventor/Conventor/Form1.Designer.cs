@@ -38,12 +38,13 @@
             this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.box_pb = new System.Windows.Forms.Panel();
+            this.btn_Done = new System.Windows.Forms.Button();
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.lbl_percent = new System.Windows.Forms.Label();
             this.listDisplay = new MyListView();
             this.cmFileName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cmPath = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cmStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btn_Done = new System.Windows.Forms.Button();
-            this.lblStatus = new System.Windows.Forms.Label();
             this.cms_ItemsAction.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -95,24 +96,24 @@
             this.stopToolStripMenuItem,
             this.pauseToolStripMenuItem});
             this.cms_ItemsAction.Name = "contextMenuStrip1";
-            this.cms_ItemsAction.Size = new System.Drawing.Size(110, 70);
+            this.cms_ItemsAction.Size = new System.Drawing.Size(108, 70);
             // 
             // lpToolStripMenuItem
             // 
             this.lpToolStripMenuItem.Name = "lpToolStripMenuItem";
-            this.lpToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.lpToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.lpToolStripMenuItem.Text = "Start";
             // 
             // stopToolStripMenuItem
             // 
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.stopToolStripMenuItem.Text = "Stop";
             // 
             // pauseToolStripMenuItem
             // 
             this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
-            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.pauseToolStripMenuItem.Text = "Pause";
             // 
             // box_pb
@@ -122,6 +123,33 @@
             this.box_pb.Size = new System.Drawing.Size(0, 0);
             this.box_pb.TabIndex = 8;
             // 
+            // btn_Done
+            // 
+            this.btn_Done.Location = new System.Drawing.Point(13, 103);
+            this.btn_Done.Name = "btn_Done";
+            this.btn_Done.Size = new System.Drawing.Size(71, 24);
+            this.btn_Done.TabIndex = 9;
+            this.btn_Done.Text = "完成";
+            this.btn_Done.UseVisualStyleBackColor = true;
+            this.btn_Done.Click += new System.EventHandler(this.btn_Done_Click);
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(32, 226);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(0, 12);
+            this.lblStatus.TabIndex = 10;
+            // 
+            // lbl_percent
+            // 
+            this.lbl_percent.AutoSize = true;
+            this.lbl_percent.ForeColor = System.Drawing.Color.Red;
+            this.lbl_percent.Location = new System.Drawing.Point(6, 226);
+            this.lbl_percent.Name = "lbl_percent";
+            this.lbl_percent.Size = new System.Drawing.Size(0, 12);
+            this.lbl_percent.TabIndex = 10;
+            // 
             // listDisplay
             // 
             this.listDisplay.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -130,9 +158,10 @@
             this.cmStatus});
             this.listDisplay.FullRowSelect = true;
             this.listDisplay.GridLines = true;
+            this.listDisplay.HideSelection = false;
             this.listDisplay.Location = new System.Drawing.Point(144, 15);
             this.listDisplay.Name = "listDisplay";
-            this.listDisplay.Size = new System.Drawing.Size(744, 194);
+            this.listDisplay.Size = new System.Drawing.Size(772, 211);
             this.listDisplay.TabIndex = 6;
             this.listDisplay.UseCompatibleStateImageBehavior = false;
             this.listDisplay.View = System.Windows.Forms.View.Details;
@@ -156,29 +185,12 @@
             this.cmStatus.Text = "Status";
             this.cmStatus.Width = 150;
             // 
-            // btn_Done
-            // 
-            this.btn_Done.Location = new System.Drawing.Point(13, 103);
-            this.btn_Done.Name = "btn_Done";
-            this.btn_Done.Size = new System.Drawing.Size(71, 24);
-            this.btn_Done.TabIndex = 9;
-            this.btn_Done.Text = "完成";
-            this.btn_Done.UseVisualStyleBackColor = true;
-            this.btn_Done.Click += new System.EventHandler(this.btn_Done_Click);
-            // 
-            // lblStatus
-            // 
-            this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(7, 214);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(0, 12);
-            this.lblStatus.TabIndex = 10;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(900, 230);
+            this.ClientSize = new System.Drawing.Size(937, 240);
+            this.Controls.Add(this.lbl_percent);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.btn_Done);
             this.Controls.Add(this.box_pb);
@@ -214,6 +226,7 @@
         private System.Windows.Forms.Panel box_pb;
         private System.Windows.Forms.Button btn_Done;
         private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.Label lbl_percent;
     }
 }
 
