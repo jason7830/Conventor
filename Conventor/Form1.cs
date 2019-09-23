@@ -53,12 +53,12 @@ namespace Conventor
             OpenFileDialog ofd = openFile();
             addItems(ofd.FileNames);
         }
-
+        // -i "T:\Download\IMG_3828 - 複製 (2).mp4" -c:v libx264  -s 100x100 -r 24 -c:a aac -ac 2 -ab 6000k -ar 44100 -c:s copy -y "C:\Users\YoYo\Desktop\IMG_3828 - 複製 (2).mp4"
         private void btn_exSetting_Click(object sender, EventArgs e)
         {
             exf.setSavePath("");
             exf.ShowDialog();
-            btn_Start.Enabled = false;
+            //btn_Start.Enabled = false;
         }
         public void createExSettingFM()
         {
@@ -209,6 +209,12 @@ namespace Conventor
                             pb[index].Value = status;
                         }
                         catch (Exception ex) {  }
+                    }
+                    if(ops.IndexOf("failed")>=0)
+                    {
+                        this.Text = "Conventor (" + i + "/" + listDisplay.Items.Count + " - Failed)";
+                        pb[index].Value = 0;
+                        return;
                     }
                     pb[index].Value = 100;
                 }
