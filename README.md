@@ -1,21 +1,21 @@
 # Conventor
 
-簡易的影片轉檔器，以ffmpeg為轉碼包
+Simple Video Conventor
 
-架構
+Structure
 ---
 * `Code:` C#
 * `Codec:` ffmpeg
 * `Buid with:` Visual Studio 2017  
-> 預設的轉碼參數  
+> Default Settings:  
 > Video Codec: H265  
 > Audio Codec: AAC
 
-運行畫面
+Pictures
 ---
 
-**批次轉檔**  
+**Batch Processing**  
 <img src="https://i.imgur.com/VBLIrie.png" width=80%>
 
-**也可以手動作進階的參數設定**  
+**Advance Setting**  
 <img src="https://i.imgur.com/SwVAs2k.png" width=80%>
